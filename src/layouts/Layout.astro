@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { inject } from '@vercel/analytics';
 
 interface Props {
   title: string;
@@ -8,9 +9,16 @@ interface Props {
   type?: string;
 }
 
-const { title, description = 'giann.', image = '/og.png', type = 'website' } = Astro.props;
+const {
+  title,
+  description = 'Minimalist portfolio of giann. - Software Engineer based in Cebu, Philippines.',
+  image = '/og.png',
+  type = 'website',
+} = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+inject();
 ---
 
 <!doctype html>
