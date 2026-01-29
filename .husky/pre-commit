@@ -1,0 +1,6 @@
+echo "🔍 Running pre-commit checks..."
+echo "✨ Formatting code..."
+bun run format
+
+echo "🔎 Linting code..."
+bun run lint
