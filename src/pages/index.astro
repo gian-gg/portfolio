@@ -1,17 +1,55 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro</h1>
-  </body>
-</html>
+<Layout title="giann.">
+  <main class="flex min-h-screen p-8 sm:p-10">
+    <div class="flex flex-col gap-1 text-sm leading-relaxed">
+      {/* Name */}
+      <h1 class="text-white font-medium">giann.</h1>
+
+      {/* Social Links */}
+      <div class="flex items-center gap-1.5 text-[13px]">
+        <a
+          href="https://www.linkedin.com/in/gian-epanto/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-white transition-colors duration-200"
+        >
+          Linkedin
+        </a>
+        <span class="text-[#444]">/</span>
+        <a
+          href="https://github.com/gian-gg"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-white transition-colors duration-200"
+        >
+          Github
+        </a>
+        <span class="text-[#444]">/</span>
+        <a
+          href="https://www.facebook.com/epanto.gg/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-white transition-colors duration-200"
+        >
+          Facebook
+        </a>
+      </div>
+
+      {/* Email */}
+      <div class="text-[13px]">
+        <a
+          href="mailto:epanto.gg@gmail.com"
+          class="hover:text-white transition-colors duration-200 line-through decoration-[#444] decoration-1"
+        >
+          epanto.gg@gmail.com
+        </a>
+      </div>
+
+      {/* Location */}
+      <div class="font-serif italic text-[#666] mt-1 text-[13px]">Cebu, Philippines</div>
+    </div>
+  </main>
+</Layout>

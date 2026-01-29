@@ -1,1 +1,11 @@
 @import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Libre Baskerville', serif;
+}
+
+html,
+body {
+  @apply h-full w-full;
+}
