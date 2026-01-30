@@ -1,0 +1,108 @@
+---
+
+---
+
+<div
+  id="cursor-dot"
+  class="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference -translate-x-1/2 -translate-y-1/2 hidden md:block"
+>
+</div>
+<div
+  id="cursor-ring"
+  class="fixed top-0 left-0 w-8 h-8 bg-white/5 backdrop-blur-[2px] border border-white/20 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 transition-[width,height,background-color,border-color,backdrop-filter] duration-300 ease-out hidden md:block"
+>
+</div>
+
+<script>
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+
+  if (dot && ring) {
+    let mouseX = -100;
+    let mouseY = -100;
+    let ringX = -100;
+    let ringY = -100;
+    let isHovering = false;
+
+    // Track mouse position
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      // Update dot position instantly
+      dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+
+      // Initial position for ring to prevent jumping from 0,0
+      if (ringX === -100) {
+        ringX = mouseX;
+        ringY = mouseY;
+      }
+    });
+
+    // Smooth follow for ring
+    const animate = () => {
+      // Lerp factor (adjust for lag: lower = slower/smoother, higher = tighter)
+      const ease = 0.15;
+
+      // Linear interpolation
+      ringX += (mouseX - ringX) * ease;
+      ringY += (mouseY - ringY) * ease;
+
+      ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+
+      requestAnimationFrame(animate);
+    };
+    animate();
+
+    // Hover effects
+    const addHover = () => {
+      if (!isHovering) {
+        isHovering = true;
+        ring.classList.add('w-12', 'h-12', 'bg-white/10', 'backdrop-blur-[4px]', 'border-white/30');
+        dot.classList.add('opacity-0');
+      }
+    };
+
+    const removeHover = () => {
+      if (isHovering) {
+        isHovering = false;
+        ring.classList.remove(
+          'w-12',
+          'h-12',
+          'bg-white/10',
+          'backdrop-blur-[4px]',
+          'border-white/30'
+        );
+        dot.classList.remove('opacity-0');
+      }
+    };
+
+    document.body.addEventListener('mouseover', (e) => {
+      const target = e.target as HTMLElement;
+      // Check if target or any parent is clickable.
+      // Using closest is more robust than target.matches for nested elements (like icon inside button)
+      const clickable = target.closest(
+        'a, button, input[type="submit"], input[type="button"], [role="button"]'
+      );
+
+      if (clickable) {
+        addHover();
+      } else {
+        removeHover();
+      }
+    });
+
+    // Hide cursor when leaving window
+    document.addEventListener('mouseout', (e) => {
+      if (!e.relatedTarget && !(e as MouseEvent & { toElement?: Element }).toElement) {
+        dot.style.opacity = '0';
+        ring.style.opacity = '0';
+      }
+    });
+
+    document.addEventListener('mouseover', () => {
+      dot.style.opacity = '1';
+      ring.style.opacity = '1';
+    });
+  }
+</script>

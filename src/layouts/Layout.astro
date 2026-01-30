@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { inject } from '@vercel/analytics';
 import SEO from '../components/SEO.astro';
+import CustomCursor from '../components/CustomCursor.astro';
 
 interface Props {
   title: string;
@@ -29,6 +30,7 @@ inject();
   <body
     class="bg-black text-neutral-400 font-sans antialiased selection:bg-neutral-200 selection:text-neutral-900"
   >
+    <CustomCursor />
     <div class="noise-bg"></div>
     <slot />
   </body>
