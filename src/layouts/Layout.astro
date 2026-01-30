@@ -47,16 +47,12 @@ inject();
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={new URL(image, Astro.site)} />
-
-    {/* Fonts */}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
-      rel="stylesheet"
-    />
   </head>
-  <body class="bg-black text-[#888888] font-sans antialiased">
+
+  <body
+    class="bg-black text-neutral-400 font-sans antialiased selection:bg-neutral-200 selection:text-neutral-900"
+  >
+    <div class="noise-bg"></div>
     <slot />
   </body>
 </html>
