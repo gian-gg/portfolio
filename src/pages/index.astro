@@ -1,55 +1,71 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Copy from '../components/Copy.astro';
+import { SITE_DATA } from '../data/site';
 ---
 
-<Layout title="giann.">
+<Layout title={SITE_DATA.name}>
   <main class="flex min-h-screen p-8 sm:p-10">
     <div class="flex flex-col gap-1 text-sm leading-relaxed">
       {/* Name */}
-      <h1 class="text-white font-medium">giann.</h1>
+      <h1 class="text-white font-medium animate-enter" style="animation-delay: 0ms;">
+        {SITE_DATA.name}
+      </h1>
 
       {/* Social Links */}
-      <div class="flex items-center gap-1.5 text-[13px]">
-        <a
-          href="https://www.linkedin.com/in/gian-epanto/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hover:text-white transition-colors duration-200"
-        >
-          LinkedIn
-        </a>
-        <span class="text-[#444]">/</span>
-        <a
-          href="https://github.com/gian-gg"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hover:text-white transition-colors duration-200"
-        >
-          GitHub
-        </a>
-        <span class="text-[#444]">/</span>
-        <a
-          href="https://www.facebook.com/epanto.gg/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hover:text-white transition-colors duration-200"
-        >
-          Facebook
-        </a>
+      <div
+        class="flex items-center gap-1.5 text-[13px] animate-enter"
+        style="animation-delay: 100ms;"
+      >
+        {
+          SITE_DATA.socials.map((social, index) => (
+            <>
+              <a
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:text-white transition-colors duration-200"
+              >
+                {social.name}
+              </a>
+              {index < SITE_DATA.socials.length - 1 && <span class="text-[#444]">/</span>}
+            </>
+          ))
+        }
       </div>
 
       {/* Email */}
-      <div class="text-[13px]">
-        <a
-          href="mailto:epanto.gg@gmail.com"
-          class="hover:text-white transition-colors duration-200 line-through decoration-[#444] decoration-1"
-        >
-          epanto.gg@gmail.com
-        </a>
+      <div class="text-[13px] animate-enter" style="animation-delay: 200ms;">
+        <Copy text={SITE_DATA.email} value={SITE_DATA.email} />
       </div>
 
       {/* Location */}
-      <div class="font-serif italic text-[#666] mt-1 text-[13px]">Cebu, Philippines</div>
+      <div
+        class="font-serif italic text-[#666] mt-1 text-[13px] animate-enter"
+        style="animation-delay: 300ms;"
+      >
+        {SITE_DATA.location}
+      </div>
     </div>
   </main>
 </Layout>
+
+<style>
+  @keyframes enter {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+      filter: blur(4px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  .animate-enter {
+    opacity: 0; /* Start hidden */
+    animation: enter 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+</style>
