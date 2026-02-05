@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { inject } from '@vercel/analytics';
+import Analytics from '@vercel/analytics/astro';
 import SEO from '../components/SEO.astro';
 import CustomCursor from '../components/CustomCursor.astro';
 
@@ -12,8 +12,6 @@ interface Props {
 }
 
 const { title, description, image, type } = Astro.props;
-
-inject();
 ---
 
 <!doctype html>
@@ -34,6 +32,7 @@ inject();
     <div class="noise-bg"></div>
     <main class="flex flex-col min-h-screen p-8 sm:p-10">
       <slot />
+      <Analytics />
     </main>
   </body>
 </html>
