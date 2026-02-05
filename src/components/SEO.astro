@@ -1,4 +1,6 @@
 ---
+import { SITE_DATA } from '../data/site';
+
 interface Props {
   title: string;
   description?: string;
@@ -8,18 +10,39 @@ interface Props {
 
 const {
   title,
-  description = 'giann. - software engineer based in cebu, philippines.',
+  description = SITE_DATA.description,
   image = '/og.png',
   type = 'website',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const jsonLD = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE_DATA.realName,
+  url: Astro.site,
+  image: new URL('/og.png', Astro.site),
+  sameAs: SITE_DATA.socials.map((social) => social.url),
+  jobTitle: 'Software Engineer',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Cebu',
+    addressCountry: 'Philippines',
+  },
+  email: SITE_DATA.email,
+  description: SITE_DATA.description,
+};
 ---
 
 <!-- SEO -->
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalURL} />
+<meta
+  name="keywords"
+  content="Geri Gian Epanto, giann., Software Engineer, Cebu, Philippines, Web Developer"
+/>
 
 <!-- Open Graph -->
 <meta property="og:type" content={type} />
@@ -34,3 +57,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.site)} />
+
+<!-- JSON-LD -->
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLD)} />

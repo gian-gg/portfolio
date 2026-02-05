@@ -1,0 +1,63 @@
+---
+import Copy from './Copy.astro';
+import { SITE_DATA } from '../data/site';
+---
+
+<div class="flex flex-col gap-1 text-sm leading-relaxed">
+  {/* Name */}
+  <h1 class="text-white font-medium animate-enter" style="animation-delay: 0ms;">
+    {SITE_DATA.name}
+  </h1>
+
+  {/* Social Links */}
+  <div class="flex items-center gap-1.5 text-[13px] animate-enter" style="animation-delay: 100ms;">
+    {
+      SITE_DATA.socials.map((social, index) => (
+        <>
+          <a
+            href={social.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-white transition-colors duration-200"
+          >
+            {social.name}
+          </a>
+          {index < SITE_DATA.socials.length - 1 && <span class="text-[#444]">/</span>}
+        </>
+      ))
+    }
+  </div>
+
+  {/* Email */}
+  <div class="text-[13px] animate-enter" style="animation-delay: 200ms;">
+    <Copy text={SITE_DATA.email} value={SITE_DATA.email} />
+  </div>
+
+  {/* Location */}
+  <div
+    class="font-serif italic text-[#666] mt-1 text-[13px] animate-enter"
+    style="animation-delay: 300ms;"
+  >
+    {SITE_DATA.location}
+  </div>
+</div>
+
+<style>
+  @keyframes enter {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+      filter: blur(4px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  .animate-enter {
+    opacity: 0; /* Start hidden */
+    animation: enter 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+</style>
