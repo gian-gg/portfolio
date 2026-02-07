@@ -1,5 +1,5 @@
 export const SITE_DATA = {
-  name: 'giann.',
+  name: 'Geri Gian Epanto.',
   realName: 'Geri Gian Epanto',
   location: 'Cebu, Philippines',
   description:
